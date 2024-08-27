@@ -26,7 +26,7 @@ function render() {
   page.forEach((item) => {
     html += `<div class="swiper-slide">
         <img class="w-full " src="${item.src}" alt="">
-        <div class="grid py-8 px-6 gap-y-8 w-[430px] justify-center">
+        <div class="grid py-8 px-6 gap-y-8 max-w-[430px] justify-center">
           <h2 class="font-bold text-3.5xl text-center h-[135px] ">
           ${item.text}
           </h2>
@@ -36,11 +36,11 @@ function render() {
   html =
     `<div class="swiper" ><div class="swiper-wrapper">` +
     html +
-    `</div><div class="swiper-pagination"></div></div><button
-    class="bg-appBlack text-white px-6 py-4 w-[380px] rounded-appRadius mt-7 ml-6" onclick="nextEl()" id="button"
+    `</div><div class="swiper-pagination"></div></div><div class="px-4 py-7"><button
+    class="bg-appBlack text-white px-6 py-4 w-full rounded-appRadius" onclick="nextEl()" id="button"
   >
     Next
-  </button>`;
+  </button></div>`;
 
   main.innerHTML = html;
 }
@@ -48,6 +48,7 @@ let next = swiper("swiper");
 let button = document.getElementById("button");
 
 next.on("touchMove", () => {
+  if (next.isEnd) return;
   if (next.swipeDirection === "next" && next.activeIndex === page.length - 2) {
     button.innerText = "Get Started";
   } else button.innerText = "Next";
