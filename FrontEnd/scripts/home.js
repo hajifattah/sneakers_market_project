@@ -13,9 +13,19 @@ pagination.addEventListener("click",(event)=>{
     setSneakers(event.target.innerText);
 
 })
-
-async function setSneakers(page = 1) {
+async function setUser(params) {
   try {
+    const response = await getuser();
+    let username = response.username.split("@")[0];
+    welcome.children[1].innerText = username;
+  } catch (error) {
+    errorHandler(error);
+  }
+}
+
+async function setSneakers(page = 1, callBack) {
+  try {
+    if (callBack) callBack();
     const list = await getSneakers({ page: page, limit: 10 });
     renderList(list);
   } catch (error) {
@@ -39,4 +49,4 @@ function renderList({ data, totalPages,page }) {
   pagination.innerHTML = html;
 }
 
-setSneakers();
+setSneakers(1, setUser);
