@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",
+    "./**/*.html",
     "./**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
@@ -13,11 +13,16 @@ export default {
         "3.5xl" : ["32px","38.7px"],
       },
       colors :{
-        appBlack : "#212529"
+        appBlack : "#212529",
+        appBgGray : "#f6f6f6",
       },
       borderRadius : {
         appRadius : "30px",
       },
+      textColor :{
+        appblue : "#152536",
+        appGray : "#757475",
+      }
     },
   },
   plugins: [],

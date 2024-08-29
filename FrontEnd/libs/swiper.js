@@ -5,7 +5,7 @@ export const swiper = (className) => {
     modules: [Navigation, Pagination],
     pagination: {
       el: ".swiper-pagination",
-      
+  
     },
   });
 };

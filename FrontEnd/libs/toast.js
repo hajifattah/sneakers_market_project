@@ -2,7 +2,7 @@ import Toastify from 'toastify-js'
 export const toast = (text, mode = "error") => {
     Toastify({
       text,
-      duration: 2000,
+      duration: 4000,
       close: true,
       position : "center",
       style: {

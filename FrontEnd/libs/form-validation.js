@@ -21,9 +21,8 @@ export function formValidation(children) {
     if (emailRegex.test(firstChild.children[1].value)) {
       return (children[3].innerText = "");
     } else {
-      return (children[3].innerText = "Please enter a valid email address.");
+      return (children[3].innerText = "Please enter a valid email address. (example@gmail.com)");
     }
-
   }
   function validatePassword() {
     const passwordRegex =
@@ -33,7 +32,7 @@ export function formValidation(children) {
       return (children[3].innerText = "");
     } else {
       return (children[3].innerText =
-        "password should be 8 character and include uppercase and lowercase and signs.");
+        "password should be 8 character and includes uppercase , lowercase , numbers and signs.");
     }
   }
 }
