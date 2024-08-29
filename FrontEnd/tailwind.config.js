@@ -22,7 +22,7 @@ export default {
       textColor :{
         appblue : "#152536",
         appGray : "#757475",
-      }
+      },
     },
   },
   plugins: [],

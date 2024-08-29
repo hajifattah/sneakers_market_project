@@ -23,6 +23,7 @@ export function formValidation(children) {
     } else {
       return (children[3].innerText = "Please enter a valid email address. (example@gmail.com)");
     }
+
   }
   function validatePassword() {
     const passwordRegex =

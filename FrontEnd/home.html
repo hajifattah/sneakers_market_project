@@ -6,19 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>M App</title>
   </head>
-  <body class="font-Inter">
-    <div class="main max-w-[430px] mx-auto" id="main">
+  <body class="font-Inter ">
+    <div class="main max-w-[430px] mx-auto " id="main">
       <!-- top -->
       <div class="px-6 pb-7">
         <div class="py-4 flex justify-between">
           <!-- left -->
           <div id="welcome">
-            <p
-              class="text-appGray font-medium flex gap-1 items-center tracking-wide"
-            >
-              Good Morning <img src="public/home/hand.png" alt="" />
-            </p>
-
+            <div class="flex gap-[6px] items-center h-6">
+              <p class="text-appGray font-medium tracking-wide"></p>
+              <img src="public/home/hand.png" alt="" />
+            </div>
             <p class="font-bold"></p>
           </div>
           <!-- right -->
@@ -40,30 +38,21 @@
           <a class="font-semibold" href="./search">See All</a>
         </div>
         <!-- brands -->
-        <div class=" mt-5">
-          <div class="">
-            <div class="flex gap-3 pl-6 swiper-sile">
-              <div
-                class="border-2 border-[#343A40] rounded-3xl font-semibold px-5 py-2"
-              >
-                <p>All</p>
-              </div>
-            </div>
-          </div>
+        <div class="flex gap-x-3 mt-5 h-14 ml-6 overflow-x-auto " id="brands">
+          
         </div>
-        <div class="grid gap-y-7 my-6">
+        <div class="grid gap-y-7 mt-[18px] mb-6">
           <!-- sneakers list -->
-          <div class="grid gap-x-4 gap-y-5 px-6 grid-cols-2 max-w-[430px] h-[530px] overflow-y-scroll" id="list">
-            
-          </div>
+          <div
+            class="grid gap-x-4 gap-y-5 px-6 grid-cols-2 max-w-[430px] h-[530px] overflow-y-scroll"
+            id="list"
+          ></div>
           <!-- pagination  -->
-          <div class="flex gap-x-3 justify-center " id="pagination">
-            
-          </div>
+          <div class="flex gap-x-3 justify-center" id="pagination"></div>
         </div>
       </section>
       <!-- end -->
-      <div class="flex gap-x-8 justify-center text-xs font-semibold  mb-4">
+      <div class="flex gap-x-8 justify-center text-xs font-semibold mb-4">
         <div>
           <a href="#">
             <img class="ml-1" src="public/home/action-bar/house.svg" alt="" />

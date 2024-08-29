@@ -34,10 +34,10 @@ function render() {
       </div>`;
   });
   html =
-    `<div class="swiper" ><div class="swiper-wrapper">` +
+    `<div><div class="swiper" ><div class="swiper-wrapper">` +
     html +
-    `</div><div class="swiper-pagination"></div></div><div class="px-4 py-7"><button
-    class="bg-appBlack text-white px-6 py-4 w-full rounded-appRadius" onclick="nextEl()" id="button"
+    `</div><div class="swiper-pagination"></div></div></div><div class="flex justify-center"><button
+    class="bg-appBlack text-white py-4 w-[90%] rounded-appRadius mb-8" onclick="nextEl()" id="button"
   >
     Next
   </button></div>`;

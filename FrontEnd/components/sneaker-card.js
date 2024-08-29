@@ -1,16 +1,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 export function createSneakerCard({pid,name,imageURL,price}) {
     return `<div data-id=${pid} class="flex flex-col gap-y-3">
       <div class="bg-appBgGray p-5 rounded-3xl">
