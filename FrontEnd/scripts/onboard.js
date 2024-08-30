@@ -1,3 +1,4 @@
+import "../style-special.css"
 import { swiper } from "../libs/swiper";
 let main = document.getElementById("main");
 const page = [
