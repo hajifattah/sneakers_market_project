@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M App</title>
+  </head>
+  <body class="font-Inter w-full">
+    <div class="main max-w-[430px] mx-auto px-6 pt-6 flex flex-col gap-y-32" id="main">
+    <div class="grid gap-y-6 w-full">
+        <div class=" flex gap-x-2 py-3 px-5 rounded-2xl hover:outline hover:outline-2 bg-appBlack/10 ">
+            <img class="size-7" src="public/search/search.svg " alt="">
+            <input class="bg-appBlack/0 outline-none grow text-lg  min-w-[70%]" type="text" name="search">
+            <img class="size-7" src="public/search/levels-list.svg" alt="">
+        </div>
+        <div class="text-xl font-bold flex justify-between min-w-[70%]">
+            <h2 class="overflow-hidden text-nowrap overflow-ellipsis ">Results for "sfscccvfdddd"</h2>
+            <p class="text-base font-bold shrink-0 pl-4">0 found</p>
+        </div>
+    </div>
+   <div class="grid gap-y-10 mb-60 ">
+    <img src="public/search/not-found.png" alt="">
+    <div class="flex flex-col gap-y-4 items-center">
+        <h2 class="font-bold text-xl text-appBlack">Not Found</h2>
+    <p class="px-6 text-center text-appBlack/90">Sorry,the keyword you entered cannot be found.please check again or search with another keyword.</p>
+    </div>
+</div>
+</div>
+    <script type="module" src="./main.js"></script>
+    <script defer type="module" src="./scripts/search.js"></script>
+  </body>
+</html>
