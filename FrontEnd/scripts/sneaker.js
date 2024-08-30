@@ -1,38 +1,89 @@
 import { findSneaker } from "../apis/services/sneakers-service";
 import { renderColors } from "../components/sneaker-color";
 import { renderImages } from "../components/sneaker-images";
+import { renderQuantity } from "../components/sneaker-quantity";
 import { renderSizes } from "../components/sneaker-sizes";
 import { errorHandler } from "../libs/error-handler";
-import {swiper} from "../libs/swiper"
+import { swiper } from "../libs/swiper";
 import { toast } from "../libs/toast";
 
 const main = document.getElementById("main");
+let sizesG;
+let colorsG;
+let priceG;
 // create query
-export function createQuery(pid){
-    try {
-        if(!pid){
-            pid = window.location.href.split("?")[1];
-            pid = pid.split("=")[1];
-        }
-        renderSneaker(pid);
-    } catch (error) {
-        return toast("sneaker Not Found");
+export function createQuery(pid) {
+  try {
+    if (!pid) {
+      pid = window.location.href.split("?")[1];
+      pid = pid.split("=")[1];
     }
+    renderSneaker(pid);
+  } catch (error) {
+    return toast("sneaker Not Found");
+  }
 }
 
 async function renderSneaker(pid) {
-    try {
-        const response = await findSneaker(pid);
-        const sneakerEl = createSneaker(response);
-        main.innerHTML = sneakerEl;
-    } catch (error) {
-        errorHandler(error);
-    }
-
+  try {
+    const response = await findSneaker(pid);
+    const sneakerEl = createSneaker(response);
+    main.innerHTML = sneakerEl;
+    selectSize();
+    selectColor();
+    selectQuantity();
+    swiper("swiper");
+  } catch (error) {
+    errorHandler(error);
+  }
 }
 
-function createSneaker({name,imageURL,colors,sizes,price}) {
-    return `<!-- top -->
+// select size
+function selectSize() {
+  const sizeList = document.getElementById("sizeList");
+  sizeList.addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) return;
+    sizeList.innerHTML = renderSizes(sizesG, event.target.innerText);
+  });
+}
+// select Color
+function selectColor() {
+  const colorList = document.getElementById("colorList");
+  colorList.addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) return;
+    colorList.innerHTML = renderColors(
+      colorsG,
+      event.target.style.backgroundColor
+    );
+  });
+}
+// select Quantity
+function selectQuantity() {
+  const quantityEl = document.getElementById("quantity");
+  const totalPrice = document.getElementById("totalPrice");
+  quantityEl.addEventListener("click", (event) => {
+    if (event.target.tagName !== "IMG") return;
+    let quantity = Number(event.currentTarget.children[1].innerText);
+    let op;
+    let price = priceG;
+    if (event.target.src.includes("plus")) {
+      op = "plus";
+      price = priceG * (++quantity);
+    } else if (event.target.src.includes("minus")) {
+      if(quantity === 0) return;
+      op = "minus";
+      price = priceG * (--quantity);
+    }
+    quantityEl.innerHTML = renderQuantity(quantity);
+    totalPrice.innerText = "$"+ price;
+  });
+}
+
+function createSneaker({ name, imageURL, colors, sizes, price }) {
+  sizesG = sizes;
+  colorsG = colors;
+  priceG = price;
+  return `<!-- top -->
       <div class="bg-appBlack/5 relative">
         <a class="my-3 pl-3 absolute z-10" href="/home">
           <img
@@ -74,7 +125,7 @@ function createSneaker({name,imageURL,colors,sizes,price}) {
           </div>
         </div>
         <!-- div description -->
-        <div class="grid gap-y-5 pt-4 pb-5 border-b w-full pl-6">
+        <div class="grid gap-y-5 pt-4 w-full pl-6">
           <div class="flex flex-col gap-y-2 pr-6">
             <h3 class="text-xl font-bold text-appBlack">Description</h3>
             <p class="text-appBlack/75">
@@ -87,13 +138,13 @@ function createSneaker({name,imageURL,colors,sizes,price}) {
           <div class="flex gap-x-4 overflow-hidden w-full ">
             <div class="flex flex-col gap-y-2 flex-1 w-0 ">
               <p class="text-lg font-bold">Size</p>
-              <div class="flex gap-x-2 overflow-x-auto py-2 ">
+              <div class="flex gap-x-2 overflow-x-auto py-2 " id="sizeList">
                ${renderSizes(sizes)}
               </div>
             </div>
             <div class="flex flex-col gap-y-2 flex-1 w-[60%]">
               <p class="text-lg font-bold">Color</p>
-              <div class="flex gap-x-2 overflow-x-auto py-2 w-full pr-2">
+              <div class="flex gap-x-2 overflow-x-auto py-2 w-full pr-2" id="colorList">
                 ${renderColors(colors)}
               </div>
             </div>
@@ -101,21 +152,20 @@ function createSneaker({name,imageURL,colors,sizes,price}) {
           <div class="flex gap-x-4 items-center font-bold">
             <h3 class="text-lg font-bold text-appBlack">Quantity</h3>
             <div
-              class="flex px-3 py-2 gap-4 items-center bg-appBlack/5 rounded-full"
+              class="flex px-3 py-2 gap-4 items-center bg-appBlack/5 rounded-full" id="quantity"
             >
-              <img class="size-5" src="public/sneaker/minus.svg" alt="" />
-              <p>2</p>
-              <img class="size-5" src="public/sneaker/plus.svg" alt="" />
+             ${renderQuantity(0)}
             </div>
           </div>
         </div>
+        <div class="border-b mx-auto w-[85%] mt-6"></div>
         <div class="flex justify-between p-6">
             <div class="flex flex-col items-center justify-center">
                 <p class="text-sm text-appBlack/70">
                     Total price
                 </p>
-                <p class="text-2xl font-bold px-3">
-                $${price}
+                <p class="text-2xl font-bold px-3" id="totalPrice">
+                $${0}
                 </p>
             </div>
             <button class="font-semibold text-white rounded-full bg-appBlack px-10 py-3 mt-2 flex gap-x-3 items-center"> <img class="size-5" src="public/sneaker/shopping-bag.svg" alt="">Add to Cart</button>
@@ -124,6 +174,5 @@ function createSneaker({name,imageURL,colors,sizes,price}) {
 }
 
 if (window.location.pathname === "/sneaker") {
-    createQuery();
+  createQuery();
 }
-let text = swiper("swiper");

@@ -6,12 +6,12 @@ export function renderImages(images) {
         }).join(" ");
     }else return createImages(images);
 }
-function createImages(item) {
+function createImages(item , className) {
     return `  <div class="swiper-slide">
                 <img
-                  class="w-full px-6"
+                  class="w-full px-6 flex justify-center items-center ${className}"
                   src="${item}"
-                  alt=""
+                  alt="picure of sneaker"
                 />
             </div>`;
 }
