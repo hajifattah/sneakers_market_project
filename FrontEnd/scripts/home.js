@@ -23,6 +23,18 @@ brandsEl.addEventListener("click", (event) => {
   setBrands(event.target.innerText);
 });
 
+// find sneaker id
+listSneakers.addEventListener("click",findSneakerId);
+function findSneakerId(event) {
+  if (event.target=== event.currentTarget) return;
+  let parent = event.target;
+  while (!parent.dataset.id) {
+    parent = parent.parentElement;
+  }
+  window.location.href = `/sneaker?id=${parent.dataset.id}`;
+  createQuery(parent.dataset.id);
+}
+
 async function setUser(params) {
   try {
     const response = await getuser();
