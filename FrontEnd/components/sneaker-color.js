@@ -2,7 +2,7 @@ export function renderColors(colors) {
     if (colors.includes("|")) {
         colors = colors.split("|");
         return colors.map((item) => {
-            return createSizes(item);
+            return createColors(item);
         }).join(" ");
     }else return createColors(colors);
 }

@@ -4,6 +4,7 @@ import { errorHandler } from "../libs/error-handler";
 import { getuser } from "../apis/services/user-service";
 import { createPagination } from "../components/paginatoin";
 import { createBrands } from "../components/brands";
+import { createQuery } from "./sneaker";
 
 let listSneakers = document.getElementById("list");
 let pagination = document.getElementById("pagination");
@@ -32,7 +33,6 @@ function findSneakerId(event) {
     parent = parent.parentElement;
   }
   window.location.href = `/sneaker?id=${parent.dataset.id}`;
-  createQuery(parent.dataset.id);
 }
 
 async function setUser(params) {

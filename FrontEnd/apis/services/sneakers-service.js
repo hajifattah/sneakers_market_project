@@ -12,6 +12,6 @@ export async function getBrands() {
 }
 
 export async function findSneaker(id) {
-    const response = await httpReq().post(urls.sneaker.find(id))
+    const response = await httpReq().get(urls.sneaker.find(id))
     return response.data;
 }
