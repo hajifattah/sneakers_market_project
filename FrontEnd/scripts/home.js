@@ -4,12 +4,13 @@ import { errorHandler } from "../libs/error-handler";
 import { getuser } from "../apis/services/user-service";
 import { createPagination } from "../components/paginatoin";
 import { createBrands } from "../components/brands";
-import { createQuery } from "./sneaker";
+import debounce from "debounce";
 
 let listSneakers = document.getElementById("list");
 let pagination = document.getElementById("pagination");
 let welcome = document.getElementById("welcome");
 let brandsEl = document.getElementById("brands");
+let search = document.getElementById("search");
 let brandG;
 // pagination
 pagination.addEventListener("click", (event) => {
@@ -34,6 +35,10 @@ function findSneakerId(event) {
   }
   window.location.href = `/sneaker?id=${parent.dataset.id}`;
 }
+// search
+search.addEventListener("keyup",debounce((event)=>{
+window.location.href = `/search?search=${event.target.value}`
+},2000));
 
 async function setUser(params) {
   try {
