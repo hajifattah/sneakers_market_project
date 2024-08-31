@@ -1,7 +1,7 @@
 import debounce from "debounce";
 import { getSneakers } from "../apis/services/sneakers-service";
 import {notFound} from "../components/not-found"
-import { renderList } from "../components/sneaker-card";
+import { renderList, selectSneaker } from "../components/sneaker-card";
 import { errorHandler } from "../libs/error-handler";
 import { renderPagination } from "../components/pagination";
 
@@ -22,8 +22,6 @@ window.search = debounce((event)=>{
 window.location.href = `/search?search=${event.target.value}`
 },2000);
 
-
-
 // create query
 export function createQuery(search) {
     try {
@@ -42,6 +40,7 @@ export function createQuery(search) {
     try {
         const response = await getSneakers({page: page, limit: 10,search : search});
         main.innerHTML =  createSearch(response , search);
+        selectSneaker(searchG);
         pagination();
     } catch (error) {
         return errorHandler(error);
@@ -52,7 +51,13 @@ export function createQuery(search) {
 
   function createSearch(response , search){
 
-    return ` <div class="grid gap-y-6 w-full">
+    return `<a class=" top-2 left-4 z-10 inline-block absolute" href="/home">
+          <img
+            class="w-9"
+            src="public/sneaker/arrow-left-short.svg"
+            alt="back"
+          />
+        </a> <div class="grid gap-y-6 w-full pt-6">
         <div class=" flex gap-x-2 py-3 px-5 rounded-2xl hover:outline hover:outline-2 bg-appBlack/10 ">
             <img class="size-7" src="public/search/search.svg " alt="">
             <input class="bg-appBlack/0 outline-none grow text-lg  min-w-[70%]" type="text" name="search" onkeyup="search(event)">
@@ -75,7 +80,7 @@ function renderListPagination(response) {
  }
 
   function baseSneaker(listSneaker,paginaton) {
-    return ` <div class="grid gap-y-7 mt-[18px] mb-6">
+    return ` <div class="grid gap-y-7  mb-6">
         <!-- sneakers list -->
         <div
           class="grid gap-x-4 gap-y-5 grid-cols-2 max-w-[430px] h-[670px] overflow-y-scroll"

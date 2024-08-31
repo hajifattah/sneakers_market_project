@@ -1,4 +1,4 @@
-import { renderList } from "../components/sneaker-card";
+import { renderList, selectSneaker } from "../components/sneaker-card";
 import { renderPagination } from "../components/pagination";
 import { getBrands, getSneakers } from "../apis/services/sneakers-service";
 import { errorHandler } from "../libs/error-handler";
@@ -25,16 +25,6 @@ brandsEl.addEventListener("click", (event) => {
   setBrands(event.target.innerText);
 });
 
-// find sneaker id
-listSneakers.addEventListener("click",findSneakerId);
-function findSneakerId(event) {
-  if (event.target=== event.currentTarget) return;
-  let parent = event.target;
-  while (!parent.dataset.id) {
-    parent = parent.parentElement;
-  }
-  window.location.href = `/sneaker?id=${parent.dataset.id}`;
-}
 // search
 search.addEventListener("keyup",debounce((event)=>{
 window.location.href = `/search?search=${event.target.value}`
@@ -72,6 +62,7 @@ function renderListPagination(list) {
   const listSneaker = renderList(list.data);
   const pagination = renderPagination(list);
   listSneakers.innerHTML = listSneaker;
+  selectSneaker();
   paginations.innerHTML = pagination;
  }
 

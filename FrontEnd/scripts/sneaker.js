@@ -17,6 +17,7 @@ export function createQuery(pid) {
     if (!pid) {
       pid = window.location.href.split("?")[1];
       pid = pid.split("=")[1];
+      pid = pid.split("&")[0];
     }
     renderSneaker(pid);
   } catch (error) {
@@ -83,9 +84,10 @@ function createSneaker({ name, imageURL, colors, sizes, price }) {
   sizesG = sizes;
   colorsG = colors;
   priceG = price;
+  let query = window.location.search.split("&")[1];
   return `<!-- top -->
       <div class="bg-appBlack/5 relative">
-        <a class="my-3 pl-3 absolute z-10" href="/home">
+        <a class="my-3 pl-3 absolute z-10" href="${query ? '/search?'+ query : '/home'}">
           <img
             class="w-full"
             src="public/sneaker/arrow-left-short.svg"
