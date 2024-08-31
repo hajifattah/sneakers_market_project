@@ -1,9 +1,9 @@
 import debounce from "debounce";
 import { getSneakers } from "../apis/services/sneakers-service";
 import {notFound} from "../components/not-found"
-import { createPagination } from "../components/paginatoin";
-import { createSneakerCard } from "../components/sneaker-card";
+import { renderList } from "../components/sneaker-card";
 import { errorHandler } from "../libs/error-handler";
+import { renderPagination } from "../components/pagination";
 
 let main = document.getElementById("main");
 let searchG;
@@ -63,25 +63,18 @@ export function createQuery(search) {
             <p class="text-base font-bold shrink-0 pl-4">${response.total} found</p>
         </div>
       </div>
-      ${response.data.length ? renderList(response) : notFound()} `;
+      ${response.data.length ? renderListPagination(response) : notFound()} `;
 
   }
 
-  function renderList({ data, totalPages, page }) {
-    let html = "";
-    data.forEach((item) => {
-      html += createSneakerCard(item);
-    });
-    let html2 = "";
-    for (let i = 1; i <= totalPages; i++) {
-      if (i === page) {
-        html2 += createPagination(i, "outline outline-slate-700 !bg-appBlack/20");
-      } else html2 += createPagination(i);
-    }
-    return baseSneaker({listSneaker: html , paginaton : html2});
-  }
+  //render list and pagination
+function renderListPagination(response) {
+  const listSneaker = renderList(response.data);
+  const pagination = renderPagination(response);
+  return baseSneaker(listSneaker,pagination);
+ }
 
-  function baseSneaker({listSneaker,paginaton}) {
+  function baseSneaker(listSneaker,paginaton) {
     return ` <div class="grid gap-y-7 mt-[18px] mb-6">
         <!-- sneakers list -->
         <div

@@ -1,19 +1,19 @@
-import { createSneakerCard } from "../components/sneaker-card";
+import { renderList } from "../components/sneaker-card";
+import { renderPagination } from "../components/pagination";
 import { getBrands, getSneakers } from "../apis/services/sneakers-service";
 import { errorHandler } from "../libs/error-handler";
 import { getuser } from "../apis/services/user-service";
-import { createPagination } from "../components/paginatoin";
 import { createBrands } from "../components/brands";
 import debounce from "debounce";
 
 let listSneakers = document.getElementById("list");
-let pagination = document.getElementById("pagination");
+let paginations = document.getElementById("pagination");
 let welcome = document.getElementById("welcome");
 let brandsEl = document.getElementById("brands");
 let search = document.getElementById("search");
 let brandG;
 // pagination
-pagination.addEventListener("click", (event) => {
+paginations.addEventListener("click", (event) => {
   if (event.target === event.currentTarget) return;
   setSneakers(event.target.innerText,null,brandG);
 });
@@ -62,26 +62,18 @@ async function setSneakers(page = 1, callBack, brand) {
       list = await getSneakers({ page: page, limit: 10, brands: brand });
     } else list = await getSneakers({ page: page, limit: 10 });
 
-    renderList(list);
+    renderListPagination(list);
   } catch (error) {
     errorHandler(error);
   }
 }
-
-function renderList({ data, totalPages, page }) {
-  let html = "";
-  data.forEach((item) => {
-    html += createSneakerCard(item);
-  });
-  listSneakers.innerHTML = html;
-  html = "";
-  for (let i = 1; i <= totalPages; i++) {
-    if (i === page) {
-      html += createPagination(i, "outline outline-slate-700 !bg-appBlack/20");
-    } else html += createPagination(i);
-  }
-  pagination.innerHTML = html;
-}
+//render list and pagination
+function renderListPagination(list) {
+  const listSneaker = renderList(list.data);
+  const pagination = renderPagination(list);
+  listSneakers.innerHTML = listSneaker;
+  paginations.innerHTML = pagination;
+ }
 
 function whatTime() {
   let hours = new Date().getHours();

@@ -1,7 +1,14 @@
 
+export function renderList( data) {
+  let htmlList = "";
+  data.forEach((item) => {
+    htmlList += createSneakerCard(item);
+  });
+  
+  return htmlList;
+}
 
-
-export function createSneakerCard({pid,name,imageURL,price}) {
+  function createSneakerCard({pid,name,imageURL,price}) {
     return `<div data-id=${pid} class="flex flex-col gap-y-3">
       <div class="bg-appBgGray p-5 rounded-3xl">
         <img class="size-[139px]" src="${imageURL}" alt="" />
