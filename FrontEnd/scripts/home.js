@@ -39,7 +39,7 @@ logout.addEventListener("click", ()=>{
   removeSessionToken();
   toast("Logged out","success")
   setTimeout(() => {
-    window.location.href = "/";
+    window.location.href = "/login";
   }, 2000);
 })
 // set user data

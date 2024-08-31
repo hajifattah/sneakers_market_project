@@ -1,7 +1,10 @@
 import { findSneaker } from "../apis/services/sneakers-service";
 import { renderColors } from "../components/sneaker-color";
 import { renderImages } from "../components/sneaker-images";
-import { renderQuantity } from "../components/sneaker-quantity";
+import {
+  quantityAndPrice,
+  renderQuantity,
+} from "../components/sneaker-quantity";
 import { renderSizes } from "../components/sneaker-sizes";
 import { errorHandler } from "../libs/error-handler";
 import { swiper } from "../libs/swiper";
@@ -30,25 +33,22 @@ async function renderSneaker(pid) {
     const response = await findSneaker(pid);
     const sneakerEl = createSneaker(response);
     main.innerHTML = sneakerEl;
-    selectSize();
-    selectColor();
-    selectQuantity();
+    listenerEl();
     swiper("swiper");
   } catch (error) {
     errorHandler(error);
   }
 }
 
-// select size
-function selectSize() {
+// add event listener for size and color quantity and addtocard
+function listenerEl() {
+  // select size
   const sizeList = document.getElementById("sizeList");
   sizeList.addEventListener("click", (event) => {
     if (event.target === event.currentTarget) return;
     sizeList.innerHTML = renderSizes(sizesG, event.target.innerText);
   });
-}
-// select Color
-function selectColor() {
+  // select Color
   const colorList = document.getElementById("colorList");
   colorList.addEventListener("click", (event) => {
     if (event.target === event.currentTarget) return;
@@ -57,26 +57,25 @@ function selectColor() {
       event.target.style.backgroundColor
     );
   });
-}
-// select Quantity
-function selectQuantity() {
+
+  // select Quantity and set total price
+  quantityAndPrice(totalPrice, priceG);
+  function totalPrice(total) {
+    const totalPrice = document.getElementById("totalPrice");
+    totalPrice.innerText = "$" + total;
+  }
+
+  // add to card
   const quantityEl = document.getElementById("quantity");
-  const totalPrice = document.getElementById("totalPrice");
-  quantityEl.addEventListener("click", (event) => {
-    if (event.target.tagName !== "IMG") return;
-    let quantity = Number(event.currentTarget.children[1].innerText);
-    let op;
-    let price = priceG;
-    if (event.target.src.includes("plus")) {
-      op = "plus";
-      price = priceG * (++quantity);
-    } else if (event.target.src.includes("minus")) {
-      if(quantity === 0) return;
-      op = "minus";
-      price = priceG * (--quantity);
-    }
-    quantityEl.innerHTML = renderQuantity(quantity);
-    totalPrice.innerText = "$"+ price;
+  const toCard = document.getElementById("toCard");
+  toCard.addEventListener("click", () => {
+    let quantity = Number(quantityEl.children[1].innerText);
+    if (quantity) {
+      toast(
+        `Successfull add ${quantityEl.children[1].innerText} sneakers to card`,
+        "success"
+      );
+    } else toast("Enter Quantity");
   });
 }
 
@@ -87,7 +86,9 @@ function createSneaker({ name, imageURL, colors, sizes, price }) {
   let query = window.location.search.split("&")[1];
   return `<!-- top -->
       <div class="bg-appBlack/5 relative">
-        <a class="my-3 pl-3 absolute z-10" href="${query ? '/search?'+ query : '/home'}">
+        <a class="my-3 pl-3 absolute z-10" href="${
+          query ? "/search?" + query : "/home"
+        }">
           <img
             class="w-full"
             src="public/sneaker/arrow-left-short.svg"
@@ -170,7 +171,7 @@ function createSneaker({ name, imageURL, colors, sizes, price }) {
                 $${0}
                 </p>
             </div>
-            <button class="font-semibold text-white rounded-full bg-appBlack px-10 py-3 mt-2 flex gap-x-3 items-center"> <img class="size-5" src="public/sneaker/shopping-bag.svg" alt="">Add to Cart</button>
+            <button class="font-semibold text-white rounded-full bg-appBlack px-10 py-3 mt-2 flex gap-x-3 items-center" id="toCard"> <img class="size-5" src="public/sneaker/shopping-bag.svg" alt="">Add to Cart</button>
         </div>
       </div>`;
 }
