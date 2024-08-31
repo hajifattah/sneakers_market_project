@@ -5,12 +5,16 @@ import { errorHandler } from "../libs/error-handler";
 import { getuser } from "../apis/services/user-service";
 import { createBrands } from "../components/brands";
 import debounce from "debounce";
+import { removeSessionToken } from "../libs/session-manager";
+import { toast } from "../libs/toast";
 
 let listSneakers = document.getElementById("list");
 let paginations = document.getElementById("pagination");
 let welcome = document.getElementById("welcome");
 let brandsEl = document.getElementById("brands");
 let search = document.getElementById("search");
+let main = document.getElementById("main");
+let logout = document.getElementById("logout");
 let brandG;
 // pagination
 paginations.addEventListener("click", (event) => {
@@ -30,9 +34,19 @@ search.addEventListener("keyup",debounce((event)=>{
 window.location.href = `/search?search=${event.target.value}`
 },2000));
 
+// logut
+logout.addEventListener("click", ()=>{
+  removeSessionToken();
+  toast("Logged out","success")
+  setTimeout(() => {
+    window.location.href = "/";
+  }, 2000);
+})
+// set user data
 async function setUser(params) {
   try {
     const response = await getuser();
+    main.classList.remove("hidden");
     let username = response.username.split("@")[0];
     welcome.children[1].innerText = username;
     whatTime();
