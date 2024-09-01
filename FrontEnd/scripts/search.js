@@ -8,13 +8,24 @@ import { renderPagination } from "../components/pagination";
 let main = document.getElementById("main");
 let searchG;
 
-    // pagination
-function pagination() {
-let paginationEl = document.getElementById("pagination");
-paginationEl.addEventListener("click",(event)=>{
-  if (event.target === event.currentTarget) return;
-  setSneakers(searchG,event.target.innerText);
-}) ;
+function listener() {
+  // show pagination when scroll to end and smoothly scroll to top
+  let listSneakers = document.getElementById("list");
+  let heigth = listSneakers.scrollHeight - listSneakers.clientHeight;
+  heigth -= 30;
+  listSneakers.scrollTo({top: heigth});
+  listSneakers.scrollTo({top: 0,behavior: "smooth"});
+  listSneakers.addEventListener("scroll",()=>{
+    if ((listSneakers.clientHeight + listSneakers.scrollTop) >=listSneakers.scrollHeight) {
+      paginationEl.classList.remove("invisible");
+  }
+  })
+  // pagination
+  let paginationEl = document.getElementById("pagination");
+  paginationEl.addEventListener("click",(event)=>{
+    if (event.target === event.currentTarget) return;
+    setSneakers(searchG,event.target.innerText);
+  }) ;
 }
 
 // seatch bar
@@ -41,7 +52,7 @@ export function createQuery(search) {
         const response = await getSneakers({page: page, limit: 10,search : search});
         main.innerHTML =  createSearch(response , search);
         selectSneaker(searchG);
-        pagination();
+        listener();
     } catch (error) {
         return errorHandler(error);
     }
@@ -87,7 +98,7 @@ function renderListPagination(response) {
           id="list"
         > ${listSneaker}</div>
         <!-- pagination  -->
-        <div class="flex gap-x-3 justify-center"  id="pagination">${paginaton} </div>
+        <div class="flex gap-x-3 justify-center invisible"  id="pagination">${paginaton} </div>
       </div>`;
   }
 

@@ -16,6 +16,13 @@ let search = document.getElementById("search");
 let main = document.getElementById("main");
 let logout = document.getElementById("logout");
 let brandG;
+// show pagination when scroll to end and smoothly scroll to top
+listSneakers.onscroll = function(ev) {
+    if (( listSneakers.clientHeight + listSneakers.scrollTop) >= listSneakers.scrollHeight) {
+        paginations.classList.remove("invisible");
+    }
+};
+
 // pagination
 paginations.addEventListener("click", (event) => {
   if (event.target === event.currentTarget) return;
@@ -58,6 +65,7 @@ async function setUser(params) {
 
 async function setSneakers(page = 1, callBack, brand) {
   try {
+    paginations.classList.add("invisible");
     let list;
     if (callBack) await callBack();
     if (brand) {
@@ -78,6 +86,7 @@ function renderListPagination(list) {
   listSneakers.innerHTML = listSneaker;
   selectSneaker();
   paginations.innerHTML = pagination;
+  listSneakers.scrollTo({top: 0,behavior: "smooth"});
  }
 
 function whatTime() {
