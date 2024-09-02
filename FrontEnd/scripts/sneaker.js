@@ -40,8 +40,16 @@ async function renderSneaker(pid) {
   }
 }
 
-// add event listener for size and color quantity and addtocard
+// add event listener for size and color quantity and addtocard and viewmore
 function listenerEl() {
+   // select view more description
+   const viewMore = document.getElementById("viewMore");
+   viewMore.addEventListener("click",()=>{
+     if (viewMore.innerText === "view more") {
+       viewMore.innerText = "view less";
+     }else viewMore.innerText = "view more";
+     viewMore.parentElement.children[0].classList.toggle("inline");
+   })
   // select size
   const sizeList = document.getElementById("sizeList");
   sizeList.addEventListener("click", (event) => {
@@ -102,7 +110,7 @@ function createSneaker({ name, imageURL, colors, sizes, price }) {
           <div class="swiper-pagination"></div>
         </div>
       </div>
-      <div class="py-6 flex flex-col justify-between">
+      <div class="pt-6 flex flex-col justify-between">
         <!-- div text -->
         <div
           class="flex flex-col gap-y-4 mx-auto pb-4 w-[calc(100%_-_55px)] border-b border-b-appBlack/10"
@@ -131,11 +139,15 @@ function createSneaker({ name, imageURL, colors, sizes, price }) {
         <div class="grid gap-y-5 pt-4 w-full pl-6">
           <div class="flex flex-col gap-y-2 pr-6">
             <h3 class="text-xl font-bold text-appBlack">Description</h3>
-            <p class="text-appBlack/75">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam
-              numquam soluta repellendus.
-              <a class="font-bold" href="">view more...</a>
+            <div>
+            <p class="text-appBlack/75 max-w-[88vw] line-clamp-2 text-clip">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti
+                  voluptatem itaque porro aliquam labore accusamus, repellendus, hic velit
+                  nobis rem iure odio eum quia aperiam dicta reiciendis sit consequuntur
+                  repudiandae.
             </p>
+            <span class="font-semibold" id="viewMore">view more</span>
+            </div>
           </div>
           <!-- size and color -->
           <div class="flex gap-x-4 overflow-hidden w-full ">

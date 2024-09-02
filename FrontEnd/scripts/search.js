@@ -11,17 +11,21 @@ let searchG;
 function listener() {
   // show pagination when scroll to end and smoothly scroll to top
   let listSneakers = document.getElementById("list");
+  let paginationEl = document.getElementById("pagination");
   let heigth = listSneakers.scrollHeight - listSneakers.clientHeight;
   heigth -= 30;
+  if(heigth < 0) heigth = 0;
   listSneakers.scrollTo({top: heigth});
   listSneakers.scrollTo({top: 0,behavior: "smooth"});
+  if (heigth <= 70) {
+    paginationEl.classList.remove("invisible");
+  }
   listSneakers.addEventListener("scroll",()=>{
-    if ((listSneakers.clientHeight + listSneakers.scrollTop) >=listSneakers.scrollHeight) {
+    if ((listSneakers.clientHeight + listSneakers.scrollTop) >= listSneakers.scrollHeight) {
       paginationEl.classList.remove("invisible");
   }
   })
   // pagination
-  let paginationEl = document.getElementById("pagination");
   paginationEl.addEventListener("click",(event)=>{
     if (event.target === event.currentTarget) return;
     setSneakers(searchG,event.target.innerText);

@@ -93,7 +93,9 @@ function whatTime() {
   let hours = new Date().getHours();
   if (hours < 12) {
     welcome.children[0].children[0].innerText = "Good Morning";
-  } else if (hours < 19) {
+  } else if (hours < 15) {
+    welcome.children[0].children[0].innerText = "Good Afteroon";
+  } else if (hours < 19 ) {
     welcome.children[0].children[0].innerText = "Good Evening";
   } else welcome.children[0].children[0].innerText = "Good Night";
 }
