@@ -4,7 +4,7 @@ interface Auth {
 }
 interface Sneaker {
   list: string;
-  find: (id: string) => void;
+  find: (id: number) => string;
   brands: string;
 }
 interface Urls{
