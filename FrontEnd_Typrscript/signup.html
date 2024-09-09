@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M App</title>
+  </head>
+  <body class="font-Inter">
+    <div class="main max-w-[430px] mx-auto px-6" id="main">
+      <a class="my-3 inline-block" href="/">
+        <img class="w-full" src="public/login/arrow-left-short.svg" alt="back"/>
+      </a>
+      <div class="flex justify-center pt-20 pb-32">
+        <img src="public/login/logo.svg" alt="" />
+      </div>
+      <div class="w-full">
+        <h2 class="font-semibold text-3.5xl text-center">Signup to Your Account</h2>
+        <form class="grid gap-y-5 mt-12 " action="" id="form">
+          <div class="flex gap-x-1 rounded py-2 px-3 bg-[#fafafa] hover:outline"><img  src="public/login/user-sign.svg" alt=""><input class="bg-[#fafafa] grow outline-none font-semibold text-sm" type="text" name="userName" placeholder="Username"></div>
+          <div class="flex gap-x-1 rounded py-2 px-3 bg-[#fafafa] hover:outline"><img class="!fill-[#000000]" src="public/login/pass-sign.svg" alt=""><input class="bg-[#fafafa] grow outline-none font-semibold text-sm tracking-wider " type="password" name="password" placeholder="Password"><img  src="public/login/eye-hide.svg" alt=""></div>
+          <a class="font-medium text-sm text-center inline-block justify-self-center" href="/login">Login</a>
+          <p class="h-4 text-red-500 w-[75%]">
+          </p>
+          <button class="py-3 px-4 bg-appBlack/65 w-full border rounded-appRadius mt-[220px] text-white/90" type="submit " name="login" disabled>signup</button>
+        </form>
+  </div>
+    </div>
+    <script type="module" src="./src/main.ts"></script>
+    <script defer type="module" src="./src/signup.ts"></script>
+  </body>
+</html>
