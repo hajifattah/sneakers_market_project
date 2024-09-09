@@ -1,5 +1,5 @@
 import Toastify from "toastify-js";
-type Tostify = (text: string, mode: string) => void;
+type Tostify = (text: string, mode?: string) => void;
 export const toast :Tostify = (text, mode = "error") => {
   Toastify({
     text,
