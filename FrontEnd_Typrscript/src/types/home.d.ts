@@ -18,5 +18,6 @@ interface ISneakerListDto<T> {
 }
 
 interface ISneakerUserDto {
-  data: { id: number; username: string };
+  id: number;
+  username: string;
 }

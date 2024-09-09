@@ -23,7 +23,7 @@ function createSneakerCard({ pid, name, imageURL, price }:IDataSneakerDto):strin
     </div>`;
 }
 
-export function selectSneaker(searchG : string):void {
+export function selectSneaker(searchG? : string):void {
   let listSneakers = <HTMLElement>document.getElementById("list");
   listSneakers.addEventListener("click", findSneakerId);
   function findSneakerId(event:MouseEvent) {

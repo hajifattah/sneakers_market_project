@@ -6,10 +6,10 @@ interface IData{
 }
 
 export async function login(data:IData) {
-   const response = await httpReq().post<ISneakerAuthDto>(urls.auth.login,data);
-   return response.data;
+   const response = await httpReq().post(urls.auth.login,data);
+   return <ISneakerAuthDto>response.data;
 }
 export async function signup(data:IData) {
-   const response = await httpReq().post<ISneakerAuthDto>(urls.auth.signup,data);
-   return response.data;
+   const response = await httpReq().post(urls.auth.signup,data);
+   return <ISneakerAuthDto>response.data;
 }
