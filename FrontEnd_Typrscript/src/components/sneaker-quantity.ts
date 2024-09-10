@@ -10,7 +10,8 @@ export function quantityAndPrice( callBack : (p:number)=>void ,priceG : number):
     quantityEl.addEventListener("click", (event:MouseEvent) => {
       let target = <HTMLImageElement>event.target;
         if (target.tagName !== "IMG") return ;
-        let quantity :number = Number(quantityEl.innerText);
+        let quantityNumber = <HTMLElement>quantityEl.children[1];
+        let quantity :number = Number(quantityNumber.innerText);
         let op :string;
         let price : number = 0;
         if (target.src.includes("plus")) {
@@ -21,7 +22,7 @@ export function quantityAndPrice( callBack : (p:number)=>void ,priceG : number):
           op = "minus";
           price = priceG * (--quantity);
         }
-        quantityEl.innerText = quantity.toString();
+        quantityNumber.innerText = quantity.toString();
         callBack(price);
     });
 

@@ -1,7 +1,7 @@
 export function renderImages(images:string) {
     if (images.includes("|")) {
       let  images2 : string[] = images.split("|");
-        return images2.map((item) => {
+        return images2.map((item :string) => {
             return createImages(item);
         }).join(" ");
     }else return createImages(images);

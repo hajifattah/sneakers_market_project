@@ -8,6 +8,6 @@ export function renderPagination({totalPages , page }:{ totalPages:number; page:
   return <string>htmlPagination;
 }
 
-function createPagination(page : number , className? : string ) {
+function createPagination(page : number , className : string ="" ) {
     return <string>`<div class="px-1 bg-appBlack/10 font-medium ${className} ">${page}</div>`;
 }

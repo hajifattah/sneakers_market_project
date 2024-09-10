@@ -1,8 +1,8 @@
-export function renderColors(colors :string ,select: string) {
+export function renderColors(colors :string ,select?: string) {
     if (colors.includes("|")) {
        let colors2 : string[] = colors.split("|") ;
         if(!select) select = colors2[0];
-        return colors2.map((item) => {
+        return colors2.map((item :string) => {
           if (item === select) {
             return createColors(item,"public/sneaker/check-mark.svg");
           }else return createColors(item);
@@ -10,7 +10,7 @@ export function renderColors(colors :string ,select: string) {
         }).join(" ");
     }else return createColors(colors,"public/sneaker/check-mark.svg");
 }
-function createColors(item : string,src = ""):string {
+function createColors(item : string,src : string = ""):string {
  if (item === "black" && src !== "" ) {
   src = "public/sneaker/check-mark-white.svg";
  }
