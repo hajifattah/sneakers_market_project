@@ -4,6 +4,7 @@ interface IParams{
     page :number;
     limit:number;
     brands?:string;
+    search?:string;
 }
 
 export async function getSneakers(params :IParams) {
